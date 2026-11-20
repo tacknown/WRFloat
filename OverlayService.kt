@@ -7,11 +7,9 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.content.pm.ServiceInfo
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.os.IBinder
 import android.view.Gravity
 import android.view.MotionEvent
@@ -71,11 +69,7 @@ class OverlayService : Service() {
             .addAction(Notification.Action.Builder(android.R.drawable.ic_menu_close_clear_cancel, "Parar", stop).build())
             .setOngoing(true)
             .build()
-        if (Build.VERSION.SDK_INT >= 34) {
-            startForeground(1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
-        } else {
-            startForeground(1, n)
-        }
+        startForeground(1, n)
     }
 
     @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
