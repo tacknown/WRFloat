@@ -12,6 +12,8 @@ jobs:
           mv AndroidManifest.xml app/src/main/
           mv MainActivity.kt OverlayService.kt app/src/main/java/com/wrhelper/overlay/
           mv index.html app/src/main/assets/
+          mkdir -p app/src/main/res/drawable-nodpi
+          mv ic_launcher.png app/src/main/res/drawable-nodpi/
           mv app-build.gradle.kts app/build.gradle.kts
       - uses: actions/setup-java@v4
         with:
