@@ -1,0 +1,27 @@
+name: Build APK
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Montar projeto
+        run: |
+          mkdir -p app/src/main/java/com/wrhelper/overlay app/src/main/assets
+          mv AndroidManifest.xml app/src/main/
+          mv MainActivity.kt OverlayService.kt app/src/main/java/com/wrhelper/overlay/
+          mv index.html app/src/main/assets/
+          mv app-build.gradle.kts app/build.gradle.kts
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
+      - run: gradle assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WRFloat-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
